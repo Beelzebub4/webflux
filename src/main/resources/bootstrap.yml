@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    consul:
+      discovery:
+        hostname: localhost
+        port: 8500
+        tags: version=1.0,author=wuhainan
+        instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id}:${server.port}
+        service-name: ${spring.application.name}
+        health-check-path: /v1/health/node/node
+        register: false
+      config:
+        #consul上面文件的格式 YAML FILES PROPERTIES KEY-VALUE
+        format: YAML
+server:
+  port: 1215
