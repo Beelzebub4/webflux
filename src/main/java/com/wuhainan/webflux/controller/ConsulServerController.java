@@ -26,24 +26,23 @@ public class ConsulServerController {
     private ConsulServiceRegistry consulServiceRegistry;
 
     /**
-     * 把consul加入服务
-     * sc.exe create "Consul-two" binPath="D:\consul\consul.exe agent -server -ui -bootstrap-expect=1 -data-dir=D:\consul\data -config-dir=D:\consul\config -node=agent-two -advertise=127.0.0.1 -bind=0.0.0.0 -client=0.0.0.0"
      * 获取所有服务
      */
-
     @GetMapping("/consul/services")
     public Response<Map<String, Service>> services() {
         return discoveryClient.getAgentServices();
     }
+
     @GetMapping("/consul/register/{serviceId}")
-    public void register(@PathVariable("serviceId") String serviceId){
+    public void register(@PathVariable("serviceId") String serviceId) {
         NewService newService = new NewService();
         newService.setId(serviceId);
         ConsulRegistration consulRegistration = new ConsulRegistration(newService, null);
         consulServiceRegistry.register(consulRegistration);
     }
+
     @GetMapping("/consul/deregister/{serviceId}")
-    public void deregister(@PathVariable("serviceId") String serviceId){
+    public void deregister(@PathVariable("serviceId") String serviceId) {
         NewService newService = new NewService();
         newService.setId(serviceId);
         ConsulRegistration consulRegistration = new ConsulRegistration(newService, null);
